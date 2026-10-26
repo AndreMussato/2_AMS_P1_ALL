@@ -1,0 +1,78 @@
+import { useState } from "react";
+
+function App() {
+
+  //Cria uma variável de estado chamada "nome"
+  //e a função "setNome" para atualizá-la
+  const [nome, setNome] = useState('');
+  const [email, setEmail] = useState('');
+  const [idade, setIdade] = useState('');
+
+  //Cria a variável "usuário", que será um objeto
+  //contendo o nome, email e idade
+  const [usuario, setUsuario] = useState({});
+
+  //Função executada quando o formulário for enviado
+  function enviaDados(e) {
+    /* preventDefault - esse evento é usado para não permitir
+    que a página seja recarregada após o envio de dados do
+    form(submit). Assim o react atualiza o valor dos elementos do
+    form sem recarregar a página toda! */
+    e.preventDefault(); //Impede que o formulário recarregue a página.
+
+    //Atualizar o estado "usuário" com os dados digitados
+    //no formulário (nome, email e idade)
+    setUsuario({
+      nome: nome,
+      email: email,
+      idade: idade
+    });
+  }
+
+  return (
+    <>
+      {/* Formulário com o evento onSubmit que chama a função enviaDados */}
+      <form onSubmit={enviaDados}>
+
+        <p>
+          <label>Nome: </label>
+        </p>
+        {/* onChange é um evento usado em inputs (como, <input>),
+    <textarea>, <select>) para detectar mudanças no valor
+    digitado pelo usuário. Ou seja, sempre que o usuário digita,
+    apaga ou modifica o conteúdo de um campo, o onChange é acionado.
+    e.target.value - target define o elemento que você deseja manipular.
+    value - captura o valor do elemento especificado com target. */}
+        <input type="text" placeholder="Digite seu nome" id="nome"
+          onChange={(e) => setNome(e.target.value)} />
+
+        <p>
+          <label>E-mail: </label>
+        </p>
+        <input type="email" placeholder="Digite seu e-mail" id="email"
+          onChange={(e) => setEmail(e.target.value)} />
+
+        <p>
+          <label>Idade: </label>
+        </p>
+        <input type="text" placeholder="Digite sua idade" id="idade"
+          onChange={(e) => setIdade(e.target.value)} />
+
+        <p>
+          {/* Botão que envia o formulário */}
+          <button type="submit">Enviar</button>
+        </p>
+      </form>
+
+      {/* Mostra os dados digitados no formulário após o envio
+      (valores do objeto usuario) */}
+      <div>
+        <p><label>Usuário: {usuario.nome}</label></p>
+        <p><label>Email: {usuario.email}</label></p>
+        <p><label>Idade: {usuario.idade}</label></p>
+      </div>
+    </>
+  )
+}
+
+export default App;
